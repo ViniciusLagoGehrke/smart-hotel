@@ -4,7 +4,7 @@ Room occupancy optimization tool with React 18 and TypeScript.
 
 ## What does it do?
 
-This app provides an interface for hotels to enter the numbers of Premium and Economy rooms that are available for the night.
+This app provides an interface for hotels to enter the numbers of Premium and Economic rooms that are available for the night.
 Then tells them immediately how many rooms of each category will be occupied and how much money they will make in total.
 
 ## Getting Started
