@@ -2,20 +2,20 @@ const sortGuests = (
   willingGuests: number[]
 ): {
   premiumGuests: number[]
-  economyGuests: number[]
+  economicGuests: number[]
 } => {
   const premiumGuests: number[] = []
-  const economyGuests: number[] = []
+  const economicGuests: number[] = []
 
   willingGuests
     .sort((a, b) => b - a)
     .map((price) =>
-      price >= 100 ? premiumGuests.push(price) : economyGuests.push(price)
+      price >= 100 ? premiumGuests.push(price) : economicGuests.push(price)
     )
 
   return {
     premiumGuests,
-    economyGuests
+    economicGuests
   }
 }
 
