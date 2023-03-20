@@ -30,11 +30,49 @@ const occupancyReducer = (
 ): HotelState => {
   switch (action.type) {
     case ACTION.SET_ROOMS:
-      return state
+      return {
+        ...action.payload.initialState,
+        availablePremiumRooms: action.payload.premium,
+        availableEconomicRooms: action.payload.economic
+      }
     case ACTION.BOOK_PREMIUM_GUEST:
-      return state
+      if (state.availablePremiumRooms > 0) {
+        return {
+          ...state,
+          availablePremiumRooms: state.availablePremiumRooms - 1,
+          occupiedPremiumRooms: state.occupiedPremiumRooms + 1,
+          numberOfPremiumGuests: state.numberOfPremiumGuests - 1,
+          revenue: state.revenue + action.price
+        }
+      } else {
+        return state
+      }
     case ACTION.BOOK_ECONOMIC_GUEST:
-      return state
+      if (
+        state.availablePremiumRooms > 0 &&
+        // If there are PremiumRooms available
+        state.availableEconomicRooms < state.numberOfEconomicGuests
+        // And all the Economic rooms will be booked
+      ) {
+        // Upgrade Economic Guest for a Premium Room
+        return {
+          ...state,
+          availablePremiumRooms: state.availablePremiumRooms - 1,
+          occupiedPremiumRooms: state.occupiedPremiumRooms + 1,
+          numberOfEconomicGuests: state.numberOfEconomicGuests - 1,
+          revenue: state.revenue + action.price
+        }
+      } else if (state.availableEconomicRooms > 0) {
+        return {
+          ...state,
+          availableEconomicRooms: state.availableEconomicRooms - 1,
+          occupiedEconomicRooms: state.occupiedEconomicRooms + 1,
+          numberOfEconomicGuests: state.numberOfEconomicGuests - 1,
+          revenue: state.revenue + action.price
+        }
+      } else {
+        return state
+      }
     default:
       return state
   }

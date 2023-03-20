@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useOccupancy from '../../hooks/useOccupancy/useOccupancy'
 import sortGuests from '../../utils/sortGuests'
 
 interface AvailableRoomsProps {
@@ -16,7 +17,13 @@ const AvailableRooms: React.FC<AvailableRoomsProps> = ({ guests }) => {
     economic: 0
   })
   const { premiumGuests, economicGuests } = sortGuests(guests)
-  console.log(premiumGuests, economicGuests)
+  const [
+    { occupiedPremiumRooms, occupiedEconomicRooms, revenue },
+    { setRooms, calculateTotalRevenue }
+  ] = useOccupancy({
+    premiumGuests,
+    economicGuests
+  })
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -30,7 +37,8 @@ const AvailableRooms: React.FC<AvailableRoomsProps> = ({ guests }) => {
 
   const handleSubmission = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(availableRooms)
+    setRooms(availableRooms)
+    calculateTotalRevenue()
   }
 
   return (
@@ -92,14 +100,21 @@ const AvailableRooms: React.FC<AvailableRoomsProps> = ({ guests }) => {
           <div className="text-lg text-gray-500">
             <p className="mt-4 text-lg text-gray-900">
               Premium Rooms:{' '}
-              <span className="font-bold">occupiedPremiumRooms</span>
+              <span data-testid="premium-rooms" className="font-bold">
+                {occupiedPremiumRooms}
+              </span>
             </p>
             <p className="mt-4 text-lg text-gray-900">
               Economic Rooms:{' '}
-              <span className="font-bold">occupiedEconomicRooms</span>
+              <span data-testid="economic-rooms" className="font-bold">
+                {occupiedEconomicRooms}
+              </span>
             </p>
             <p className="mt-4 text-lg text-gray-900">
-              Total possible Revenue: <span className="font-bold">revenue</span>
+              Total possible Revenue:{' '}
+              <span data-testid="revenue" className="font-bold">
+                {revenue}
+              </span>
             </p>
           </div>
         </div>
