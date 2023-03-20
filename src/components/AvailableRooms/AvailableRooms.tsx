@@ -1,13 +1,41 @@
-import type React from 'react'
+import { useState } from 'react'
+import sortGuests from '../../utils/sortGuests'
 
 interface AvailableRoomsProps {
   guests: number[]
 }
 
+interface AvailableRoomsState {
+  premium: number
+  economic: number
+}
+
 const AvailableRooms: React.FC<AvailableRoomsProps> = ({ guests }) => {
+  const [availableRooms, setAvailableRooms] = useState<AvailableRoomsState>({
+    premium: 0,
+    economic: 0
+  })
+  const { premiumGuests, economicGuests } = sortGuests(guests)
+  console.log(premiumGuests, economicGuests)
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    setAvailableRooms((prevState) => {
+      return {
+        ...prevState,
+        [name]: value
+      }
+    })
+  }
+
+  const handleSubmission = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    console.log(availableRooms)
+  }
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmission}>
         <h2 className="mt-4 text-lg font-bold text-gray-900">
           Please, enter rooms available
         </h2>
@@ -19,9 +47,13 @@ const AvailableRooms: React.FC<AvailableRoomsProps> = ({ guests }) => {
               invalid:text-pink-600 focus:border-sky-500 focus:outline-none focus:ring-1
               focus:ring-sky-500 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               autoFocus
+              required
               type="number"
               name="premium"
-              required
+              value={availableRooms.premium}
+              onFocus={(e) => e.target.select()}
+              onChange={handleInputChange}
+              onBlur={handleInputChange}
             />
           </label>
         </div>
@@ -32,9 +64,13 @@ const AvailableRooms: React.FC<AvailableRoomsProps> = ({ guests }) => {
               className="mt-1 ml-2 w-16 rounded-md border border-slate-300 bg-white p-2 text-sm shadow-sm placeholder:text-slate-400 invalid:border-pink-500
               invalid:text-pink-600 focus:border-sky-500 focus:outline-none focus:ring-1
               focus:ring-sky-500 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+              required
               type="number"
               name="economic"
-              required
+              value={availableRooms.economic}
+              onFocus={(e) => e.target.select()}
+              onChange={handleInputChange}
+              onBlur={handleInputChange}
             />
           </label>
         </div>
