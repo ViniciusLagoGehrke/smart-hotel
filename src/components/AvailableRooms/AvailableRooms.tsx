@@ -58,6 +58,7 @@ const AvailableRooms: React.FC<AvailableRoomsProps> = ({ guests }) => {
               required
               type="number"
               name="premium"
+              min={0}
               value={availableRooms.premium}
               onFocus={(e) => e.target.select()}
               onChange={handleInputChange}
@@ -75,6 +76,7 @@ const AvailableRooms: React.FC<AvailableRoomsProps> = ({ guests }) => {
               required
               type="number"
               name="economic"
+              min={0}
               value={availableRooms.economic}
               onFocus={(e) => e.target.select()}
               onChange={handleInputChange}

@@ -9,7 +9,7 @@ const sortGuests = (
 
   willingGuests
     .sort((a, b) => b - a)
-    .map((price) =>
+    .forEach((price) =>
       price >= 100 ? premiumGuests.push(price) : economicGuests.push(price)
     )
 
