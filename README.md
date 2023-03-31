@@ -1,13 +1,13 @@
 # Room occupancy optimization tool
 
-Room occupancy optimization tool with React 18 and TypeScript.
+Room occupancy optimization tool built with Vite, React 18 and TypeScript.
+
+![Desktop Preview](desktop-preview.jpg)
 
 ## What does it do?
 
 This app provides an interface for hotels to enter the numbers of Premium and Economic rooms that are available for the night.
 Then tells them immediately how many rooms of each category will be occupied and how much money they will make in total.
-
-## Getting Started
 
 ### Install
 
@@ -64,3 +64,11 @@ View and interact with your tests via UI.
 ```bash
 pnpm run test:ui
 ```
+
+## Live Site
+
+The Web version is already deployed and you can visite live here:
+
+[Smart Hotel](https://smart-hotel-sand.vercel.app/)
+
+[OnPortfolio](https://front-end-portfolio.vercel.app/)
