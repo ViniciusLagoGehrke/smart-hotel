@@ -24,7 +24,7 @@ type HotelAction =
   | { type: ACTION.BOOK_PREMIUM_GUEST; price: number }
   | { type: ACTION.BOOK_ECONOMIC_GUEST; price: number }
 
-const occupancyReducer = (
+export const occupancyReducer = (
   state: HotelState,
   action: HotelAction
 ): HotelState => {
